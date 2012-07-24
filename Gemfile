@@ -10,7 +10,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'decent_exposure'
 gem 'twitter-bootstrap-rails'
-gem 'rails-backbone'
+gem 'backbone-on-rails'
 
 
 # Gems used only for assets and not required
