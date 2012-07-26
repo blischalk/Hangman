@@ -1,0 +1,30 @@
+Game:
+ - Score
+ - Status
+ - Difficulty
+ - Rules
+
+Man:
+ - Remaining Parts
+
+Word:
+ - Letters
+
+Rule:
+ - Conditions
+
+Player:
+ - Name
+ - Username
+ - Email
+ - Guesses
+ - Score
+
+Guess:
+ - Guessed Letter
+
+Scoreboard:
+ - Players
+ - Score
+ - Wins
+ - Losses
