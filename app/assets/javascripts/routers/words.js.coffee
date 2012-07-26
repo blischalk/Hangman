@@ -5,7 +5,7 @@ class Hangman.Routers.Words extends Backbone.Router
 
   initialize: ->
     @collection = new Hangman.Collections.Words()
-    @collection.fetch()
+    @collection.reset($('#container').data 'words')
 
   index: ->
     view = new Hangman.Views.WordsIndex(collection: @collection)

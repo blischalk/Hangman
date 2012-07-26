@@ -5,19 +5,28 @@ class Hangman.Views.WordsIndex extends Backbone.View
     'submit #new-word': 'createWord'
 
   initialize: ->
-    @collection.on('reset', @render, this)
-    @collection.on('add', @appendWord, this)
+    @collection.on('reset', @render)
+    @collection.on('add', @appendWord)
 
-  render: ->
+  render: =>
     $(@el).html(@template())
     @collection.each(@appendWord)
     this
 
-  appendWord: (word) ->
+  appendWord: (word) =>
     view = new Hangman.Views.Word(model: word)
-    $('#words').append(view.render().el)
+    @$('#words').append(view.render().el)
 
-  createWord: (event) =>
+  createWord: (event) ->
     event.preventDefault()
-    @collection.create title: $('#new-word-title').val()
-    $('#new-word')[0].reset()
+    attributes = title: $('#new-word-title').val()
+    @collection.create attributes,
+      wait: true
+      success: -> $('#new-word')[0].reset()
+      error: @handleError
+
+  handleError: (word, response) ->
+    if response.status == 422
+      errors = $.parseJSON(response.responseText).errors
+      for attribute, messages of errors
+        alert "#{attribute} #{message}" for message in messages

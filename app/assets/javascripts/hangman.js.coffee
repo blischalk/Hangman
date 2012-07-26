@@ -5,7 +5,7 @@ window.Hangman =
   Routers: {}
   init: -> 
     new Hangman.Routers.Words
-    Backbone.history.start()
+    Backbone.history.start(pushState: true)
 
 $(document).ready ->
   Hangman.init()
