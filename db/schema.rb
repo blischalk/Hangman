@@ -13,22 +13,8 @@
 
 ActiveRecord::Schema.define(:version => 20120726025040) do
 
-  create_table "games", :force => true do |t|
-    t.integer  "score"
-    t.integer  "status"
-    t.integer  "difficulty"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "username"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "words", :force => true do |t|
-    t.string   "word"
+    t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

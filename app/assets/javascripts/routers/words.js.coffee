@@ -3,8 +3,12 @@ class Hangman.Routers.Words extends Backbone.Router
     '': 'index'
     'words/:id': 'show'
 
+  initialize: ->
+    @collection = new Hangman.Collections.Words()
+    @collection.fetch()
+
   index: ->
-    view = new Hangman.Views.WordsIndex()
+    view = new Hangman.Views.WordsIndex(collection: @collection)
     $('#container').html(view.render().el)
 
   show: (id)->

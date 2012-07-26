@@ -1,5 +1,7 @@
 Hangman::Application.routes.draw do
-  resources :words
+  scope "api" do
+    resources :words
+  end
 
   root to: 'main#index'
   # The priority is based upon order of creation:
