@@ -1,8 +1,0 @@
-<h1>Hangman</h1>
-
-<form id="new-word" class="form-inline">
-  <input type="text" name="word" id="new-word-title" class="input-small">
-  <input type="submit" value="Submit" class="btn">
-</form>
-
-<ul id="words"></ul>
