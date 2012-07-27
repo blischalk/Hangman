@@ -1,6 +1,6 @@
 Hangman::Application.routes.draw do
   scope "api" do
-    resources :words
+    resources :phrases
   end
 
   root to: 'main#index'
