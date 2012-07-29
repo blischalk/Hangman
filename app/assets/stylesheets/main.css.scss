@@ -1,3 +1,125 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body{
+  background-color: #5dc4f0;
+}
+.controls{
+  width: 100%;
+  height: 60px;
+  background-color:#333;
+  position:absolute;
+  top: 0;
+  -moz-box-shadow: 0 0 5px 5px #333;
+  -webkit-box-shadow: 0 0 5px 5px #333;
+  box-shadow: 0 0 5px 5px #333;
+}
+.controls h1{
+  color:#fff;
+  line-height: 60px;
+  margin-left: 20px;
+}
+.container-fluid{
+  background-image: image-url("clouds.png");
+  background-repeat: no-repeat;
+  background-position: top center;
+  min-height: 400px;
+}
+footer{
+  position:absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 100px;
+  background-image: image-url("grass.png");
+  background-position: bottom center;
+}
+#container{
+  position:absolute;
+  top:100px;
+}
+#phrase, #guess{
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #333;
+  padding: 5px;
+  max-width: 600px;
+}
+
+#guess{
+  height: 300px;
+  width: 300px;
+  position:relative;
+  top: 50px;
+  left: 100px;
+  z-index: 100;
+  input[type='submit']{
+    width: 300px;
+    position:absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+  input[type='text']{
+    font-size: 220px;
+    padding: 0px;
+    text-align: center;
+    width: 298px;
+    height: 265px;
+  }
+}
+
+
+.char{
+  display: inline-block;
+  margin: 5px;
+  padding:5px;
+  width: 1em;
+  height:1em;
+  text-align: center;
+  font-size:2em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+.word{
+  float: left;
+  margin-right: 30px;
+}
+
+.space{
+  border:none;
+}
+
+#gallow {
+  background-image: image-url("gallow.png");
+  background-repeat: no-repeat;
+  background-position: top center;
+  height: 354px;
+  width: 361px;
+  position:absolute;
+  bottom: 25px;
+  right: 200px;
+}
+#man{
+  position:relative;
+  width: 112px;
+  margin: 0 auto;
+  top: 20px;
+  left: 30px;
+}
+#rope{
+  width: 6px;
+  margin: 0 auto;
+}
+#head{
+  width: 67px;
+  margin: 0 auto;
+}
+#l-arm, #body, #r-arm, #l-leg, #r-leg{
+  float:left;
+}
+#l-leg{
+  clear:both;
+}
+#rope, #head, #l-arm, #body, #r-arm, #l-leg, #r-leg{
+  opacity:0.0;
+}

@@ -1,13 +1,8 @@
 class Hangman.Views.Phrase extends Backbone.View
   template: JST['phrases/phrase']
-  tagName: 'li'
-
-  events:
-    'click': 'showPhrase'
 
   render: ->
-    $(@el).html(@template(phrase: @model))
+    console.log(@collection.shuffle())
+    $(@el).html(@template(phrase: @phrase))
     this
 
-  showPhrase: ->
-    Backbone.history.navigate("phrases/#{@model.get('id')}", true)

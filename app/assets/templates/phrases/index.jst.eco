@@ -1,8 +1,6 @@
-<h1>Hangman</h1>
-
-<form id="new-phrase" class="form-inline">
-  <input type="text" maxlength="1" name="phrase" id="new-phrase-content" class="input-small">
+<div id="phrase" class="clearfix">
+</div>
+<form id="guess" class="form-inline">
+  <input type="text" maxlength="1" name="phrase" id="letter" class="input-small">
   <input type="submit" value="Submit" class="btn">
 </form>
-
-<ul id="phrases"></ul>

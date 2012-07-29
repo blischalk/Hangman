@@ -2,31 +2,33 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
   template: JST['phrases/index']
 
   events:
-    'submit #new-phrase': 'createPhrase'
+    'submit #guess': 'submitGuess'
+
+  submitGuess: (e) ->
+    e.preventDefault()
+    @checkGuess($('#letter').val())
+    $('#guess')[0].reset()
+
+  checkGuess: (guess) ->
+    for char in Hangman.phrase.get('content')
+      if char == guess
+        alert char + ' is in the phrase'
 
   initialize: ->
     @collection.on('reset', @render)
-    @collection.on('add', @appendPhrase)
 
   render: =>
     $(@el).html(@template())
-    @collection.each(@appendPhrase)
+    @addWords()
     this
 
-  appendPhrase: (phrase) =>
-    view = new Hangman.Views.Phrase(model: phrase)
-    @$('#phrases').append(view.render().el)
-
-  createPhrase: (event) ->
-    event.preventDefault()
-    attributes = content: $('#new-phrase-content').val()
-    @collection.create attributes,
-      wait: true
-      success: -> $('#new-phrase')[0].reset()
-      error: @handleError
-
-  handleError: (phrase, response) ->
-    if response.status == 422
-      errors = $.parseJSON(response.responseText).errors
-      for attribute, messages of errors
-        alert "#{attribute} #{message}" for message in messages
+  addWords: ->
+    $word = $('<div class="word"></div>')
+    for char in Hangman.phrase.get('content')
+      if char != ' '
+        $letter = '<div class="char letter">' + char + '</div>'
+        $word.append($letter)
+      else
+        $word = $('<div class="word"></div>')
+      @$('#phrase').append($word)
+    @$('#phrase').fadeIn('slow')
