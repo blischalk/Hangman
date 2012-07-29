@@ -10,9 +10,29 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     $('#guess')[0].reset()
 
   checkGuess: (guess) ->
+    index = 0
     for char in Hangman.phrase.get('content')
       if char == guess
-        alert char + ' is in the phrase'
+        @addLetter(char, index)
+      else
+        @hangMan()
+        return
+      if char != ' '
+        index++
+
+  addLetter: (char, index) ->
+    $letterContainers = $('.letter')
+    $($letterContainers[index]).html("<p>" + char + "</p>")
+
+  wrongAnswers: 0
+
+  hangMan: ->
+    # show body before left arm
+    index = @wrongAnswers
+    index = 3 if @wrongAnswers is 2
+    index = 2 if @wrongAnswers is 3
+    $('#man').children().eq(index).css({'opacity': 1.0})
+    @wrongAnswers++
 
   initialize: ->
     @collection.on('reset', @render)
@@ -26,7 +46,7 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     $word = $('<div class="word"></div>')
     for char in Hangman.phrase.get('content')
       if char != ' '
-        $letter = '<div class="char letter">' + char + '</div>'
+        $letter = '<div class="char letter"></div>'
         $word.append($letter)
       else
         $word = $('<div class="word"></div>')
