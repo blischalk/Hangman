@@ -10,29 +10,48 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     $('#guess')[0].reset()
 
   checkGuess: (guess) ->
-    index = 0
-    for char in Hangman.phrase.get('content')
+    # store the index locations where the guess was found
+    indexes = []
+    # Our display logic does not use spaces as words are separated into divs
+    # so we must remove spaces
+    for char, index in Hangman.phrase.get('content').replace(/\s+/g, '').split('')
       if char == guess
-        @addLetter(char, index)
-      else
-        @hangMan()
-        return
-      if char != ' '
-        index++
+        indexes.push(index)
+    # If indexes is a blank array the guess was wrong
+    # and we need to hang the man
+    if indexes.length == 0
+      @hangMan()
+      if Hangman.wrongAnswers == 7
+        @gameOver()
+      return
+    else
+    # otherwise we need to fill in the appropriate letters on the gameboard
+      @addLetter guess, index for index in indexes
 
   addLetter: (char, index) ->
+    # get all the letter divs
     $letterContainers = $('.letter')
+    # add the guessed character into the containers
     $($letterContainers[index]).html("<p>" + char + "</p>")
-
-  wrongAnswers: 0
 
   hangMan: ->
     # show body before left arm
-    index = @wrongAnswers
-    index = 3 if @wrongAnswers is 2
-    index = 2 if @wrongAnswers is 3
+    index = Hangman.wrongAnswers
+    index = 3 if Hangman.wrongAnswers is 2
+    index = 2 if Hangman.wrongAnswers is 3
+    # display appendages
     $('#man').children().eq(index).css({'opacity': 1.0})
-    @wrongAnswers++
+    Hangman.wrongAnswers++
+
+  gameOver: ->
+    alert 'You have lost :(. Re-setting'
+    $('#man').children().each ->
+      $(@).css({'opacity': 0.0})
+    @resetGame()
+
+  resetGame: ->
+    @collection.fetch()
+
 
   initialize: ->
     @collection.on('reset', @render)
@@ -43,6 +62,7 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     this
 
   addWords: ->
+    # @TODO: move this html into a template of some sort
     $word = $('<div class="word"></div>')
     for char in Hangman.phrase.get('content')
       if char != ' '

@@ -4,8 +4,8 @@ class Hangman.Collections.Phrases extends Backbone.Collection
   model: Hangman.Models.Phrase
 
   initialize: ->
-    @bind('reset', @setPhrase, this)
+    @bind('reset', @setGameVars, this)
 
-  setPhrase: ->
-    if !Hangman.phrase
-      Hangman.phrase = @shuffle()[0]
+  setGameVars: ->
+    Hangman.phrase = @shuffle()[0]
+    Hangman.wrongAnswers = 0
