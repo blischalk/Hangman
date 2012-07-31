@@ -1,6 +1,9 @@
 Hangman::Application.routes.draw do
   scope "api" do
     resources :phrases
+    scope "hangman" do
+      get 'guess/:letter', to: 'hangman#guess'
+    end
   end
 
   root to: 'main#index'
