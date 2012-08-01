@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(:version => 20120731143047) do
   create_table "rounds", :force => true do |t|
     t.integer  "phrase_id"
     t.integer  "game_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "phrase_indicies"
+    t.integer  "incorrect_answers"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "users", :force => true do |t|
