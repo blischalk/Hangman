@@ -63,12 +63,11 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
 
   addWords: ->
     # @TODO: move this html into a template of some sort
-    $word = $('<div class="word"></div>')
-    for char in Hangman.phrase.get('content')
-      if char != ' '
-        $letter = '<div class="char letter"></div>'
+    for word, val of $('#container').data('phrase-indicies')
+      $word = $('<div class="word"></div>')
+      for correct in val
+        if correct != 0 then letter = correct else letter = ''
+        $letter = '<div class="char letter">' + letter + '</div>'
         $word.append($letter)
-      else
-        $word = $('<div class="word"></div>')
       @$('#phrase').append($word)
     @$('#phrase').fadeIn('slow')

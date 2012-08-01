@@ -1,7 +1,12 @@
 class MainController < ApplicationController
   respond_to :json, :html
   def index
-    game_config unless session[:game_id]
+    if session[:game_id]
+      game_retrieve
+    else
+      game_config
+    end
+    update_public_data
   end
 
   def guess
@@ -13,8 +18,11 @@ class MainController < ApplicationController
     @game = Game.new()
     if @game.save!
       session[:game_id] = @game.id
-      update_public_data
     end
+  end
+
+  def game_retrieve
+    @game = Game.find(session[:game_id])
   end
 
   def update_public_data
