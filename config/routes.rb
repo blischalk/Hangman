@@ -2,7 +2,7 @@ Hangman::Application.routes.draw do
   scope "api" do
     resources :phrases
     scope "hangman" do
-      get 'guess/:letter', to: 'hangman#guess'
+      get 'guess/:letter', to: 'main#guess'
     end
   end
 

@@ -3,7 +3,11 @@ class Game < ActiveRecord::Base
   has_and_belongs_to_many :players, :class_name => 'User'
   has_many :rounds, :dependent => :destroy
   has_many :phrases, :through => :rounds
-  after_initialize :build_game
+  before_create :build_game
+
+  def current_round
+    self.rounds.last
+  end
 
   private
   def build_game
