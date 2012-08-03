@@ -21,4 +21,10 @@ class PhrasesController < ApplicationController
     respond_with Phrase.destroy(params[:id])
   end
 
+  def guess
+    respond_to do |format|
+      format.json { render json: Guess.new(session[:game_id], params[:letter]).data }
+    end
+  end
+
 end

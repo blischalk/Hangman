@@ -4,7 +4,7 @@ class CreateRounds < ActiveRecord::Migration
       t.references :phrase
       t.references :game
       t.text :phrase_indicies
-      t.integer :incorrect_answers
+      t.integer :incorrect_answers, :default => 0
       t.timestamps
     end
   end

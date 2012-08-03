@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(:version => 20120731143047) do
     t.integer  "phrase_id"
     t.integer  "game_id"
     t.text     "phrase_indicies"
-    t.integer  "incorrect_answers"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "incorrect_answers", :default => 0
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "users", :force => true do |t|

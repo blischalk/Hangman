@@ -7,26 +7,19 @@ class Guess
   def set_instance_vars(game_id, letter)
     @letter = letter
     @game = Game.find(game_id)
-    @round = @game.rounds.last
   end
 
   def guess_check
-    if guess_correct?
-      @round.update
-    end
+    correct = guess_correct?
+    @game.current_round.set_data(@letter, correct)
   end
 
   def guess_correct?
     return @correct_answer if @correct_answer
-    @correct_answer = @round.phrase.content =~ /#{@letter}/ ? true : false
+    @correct_answer = @game.current_round.phrase.content =~ /#{@letter}/ ? true : false
   end
 
   def data
-    if guess_correct?
-      'guess was correct'.to_json
-    else
-      'guess was incorrect'.to_json
-    end
+    @game.current_round.data
   end
-
 end

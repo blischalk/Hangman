@@ -26,7 +26,6 @@ class MainController < ApplicationController
   end
 
   def update_public_data
-    @phrase_indicies = @game.current_round.phrase_indicies
-    @incorrect_answers = @game.current_round.incorrect_answers
+    @round_data = @game.current_round.data
   end
 end
