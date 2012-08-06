@@ -2,7 +2,9 @@
 
 FactoryGirl.define do
   factory :game do |g|
-    g.id 1
-    g.rounds {|a| [a.association(:round)]}
+    g.id 2
+    factory :game_full, :class => Game do |gf|
+      gf.rounds {|a| [a.association(:round)]}
+    end
   end
 end
