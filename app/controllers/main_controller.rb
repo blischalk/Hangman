@@ -25,7 +25,11 @@ class MainController < ApplicationController
   end
 
   def game_retrieve
-    @game = Game.find(session[:game_id])
+    begin
+      @game = Game.find(session[:game_id])
+    rescue ActiveRecord::RecordNotFound
+      game_config
+    end
   end
 
   def update_public_data
