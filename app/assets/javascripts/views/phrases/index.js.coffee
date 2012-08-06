@@ -6,17 +6,35 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
 
   initialize: ->
     @.on('guessResponse', @displayUpdate)
+    @.on('cleanUp', @cleanUp)
+    @.on('newRound', @setupNewRound)
+
+  cleanUp: ->
+    @getNewRound() if @gameOver()
+
+  setupNewRound: ->
+    $('#container').data('round-data', @.responseText)
+    @addWords()
+
+  getNewRound: ->
+    new Hangman.Models.Round().newRound(@)
+
+  gameOver: ->
+    unguessed = 0
+    $('.letter').each ->
+      unguessed++ if $(this).text() == ''
+    return true if unguessed == 0
 
   submitGuess: (e) ->
     e.preventDefault()
-    phrase = new Hangman.Models.Phrase()
-    phrase.guess($('#letter').val(), @)
+    new Hangman.Models.Phrase().guess($('#letter').val(), @)
     $('#guess')[0].reset()
 
   displayUpdate: ->
     $('#container').data('round-data', @.responseText)
+    @hangMan()
     @updateLetters()
-    @checkGameOver()
+    @.trigger('cleanUp')
 
   updateLetters: ->
     $letters = $('.letter')
@@ -29,18 +47,26 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
 
   hangMan: ->
     incorrect_answers = $('#container').data('round-data').incorrect_answers
+    @displayParts(index, incorrect_answers) for index in [0..incorrect_answers]
+
+  displayParts: (index, incorrect_answers) ->
+    console.log(index)
+    return if index == 0
     # show body before left arm
-    index = 3 if incorrect_answers is 2
-    index = 2 if incorrect_answers is 3
+    index = 4 if incorrect_answers is 3
+    index = 3 if incorrect_answers is 4
     # display appendages
-    $('#man').children().eq(index).css({'opacity': 1.0})
+    $('#man').children().eq(index - 1).css({'opacity': 1.0})
+    
 
   render: =>
     $(@el).html(@template())
     @addWords()
+    @hangMan()
     this
 
   addWords: ->
+    $('#phrase').empty()
     # @TODO: move this html into a template of some sort
     for word, val of $('#container').data('round-data').phrase_indicies
       $word = $('<div class="word"></div>')

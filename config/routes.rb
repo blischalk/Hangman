@@ -3,6 +3,7 @@ Hangman::Application.routes.draw do
     scope "hangman" do
       resources :phrases
       get 'phrase/guess' => 'phrases#guess'
+      post 'round' => 'main#new_round'
     end
   end
 

@@ -9,8 +9,11 @@ class MainController < ApplicationController
     update_public_data
   end
 
-  def guess
-    respond_with Guess.new(session[:game_id], params[:letter]).data
+  def new_round
+    game_config
+    respond_to do |format|
+      format.json { render json: @game.current_round.data }
+    end
   end
 
   private
