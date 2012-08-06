@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Game do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should have a round' do
+    game = FactoryGirl.build(:game)
+    subject.rounds.count.should be(1)
+  end
 end

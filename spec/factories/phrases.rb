@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :phrase do
-    phrase "MyString"
+    id 1
+    content "This is a testing phrase"
   end
 end
