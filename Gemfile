@@ -11,6 +11,8 @@ gem 'haml-rails'
 gem 'decent_exposure'
 gem 'twitter-bootstrap-rails'
 gem 'backbone-on-rails'
+gem 'devise'
+gem 'cancan'
 
 
 # Gems used only for assets and not required
