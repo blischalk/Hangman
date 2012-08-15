@@ -6,15 +6,25 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
 
   initialize: ->
     @.on('guessResponse', @displayUpdate)
-    @.on('cleanUp', @cleanUp)
     @.on('newRound', @setupNewRound)
+    @.on('cleanUp', @cleanUp)
 
   cleanUp: ->
-    @getNewRound() if @gameOver()
+    if @gameOver()
+      @getNewRound()
+      @displayGameOver()
+      @resetMan()
 
   setupNewRound: ->
     $('#container').data('round-data', @.responseText)
     @addWords()
+
+  resetMan: ->
+    $('#man').children().each ->
+      $(this).css({'opacity': 0.0})
+
+  displayGameOver: ->
+    alert 'Game Over :(' 
 
   getNewRound: ->
     new Hangman.Models.Round().newRound(@)
@@ -23,7 +33,7 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     unguessed = 0
     $('.letter').each ->
       unguessed++ if $(this).text() == ''
-    return true if unguessed == 0
+    return true if unguessed == 0 || $('#container').data('round-data').incorrect_answers >= 7
 
   submitGuess: (e) ->
     e.preventDefault()
@@ -34,7 +44,7 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     $('#container').data('round-data', @.responseText)
     @hangMan()
     @updateLetters()
-    @.trigger('cleanUp')
+    @cleanUp()
 
   updateLetters: ->
     $letters = $('.letter')
@@ -50,7 +60,6 @@ class Hangman.Views.PhrasesIndex extends Backbone.View
     @displayParts(index, incorrect_answers) for index in [0..incorrect_answers]
 
   displayParts: (index, incorrect_answers) ->
-    console.log(index)
     return if index == 0
     # show body before left arm
     index = 4 if incorrect_answers is 3
