@@ -1,4 +1,5 @@
 class MainController < ApplicationController
+  before_filter :authenticate_user!
   respond_to :json, :html
   def index
     if session[:game_id]

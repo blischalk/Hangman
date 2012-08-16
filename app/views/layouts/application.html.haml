@@ -14,8 +14,13 @@
     .container-fluid
       .row-fluid
         .span6
+          %p.notice= notice
+          %p.alert= alert
           = yield
         .span6
-          = render 'gallow'
+          - if user_signed_in?
+            %p= link_to 'Sign Out', destroy_user_session_path, method: :delete
+          - if content_for? :right
+            = yield :right
           
     %footer
