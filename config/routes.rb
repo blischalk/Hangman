@@ -1,6 +1,6 @@
 Hangman::Application.routes.draw do
-  resources :users
   devise_for :users
+  resources :users
 
   scope "api" do
     scope "hangman" do
